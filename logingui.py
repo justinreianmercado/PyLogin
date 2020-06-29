@@ -3,120 +3,80 @@ from tkinter import filedialog, Text
 import os
 from Account import Account
 
-# Root is the window that allows a canvas to be placed on top
+# Create Window
 root = tk.Tk()
-
-# Canvas is the background that allows frame to be placed on top
-canvas = tk.Canvas(root, height=300, width=300, bg="black")
-canvas.pack()
-
-# Frame is the element on top of background, allows for buttons and text boxes to be placed on top
-frame = tk.Frame(root, bg="white")
-frame.place(relheight=1, relwidth=1)
+root.title("Login GUI")
 
 
-def dispEntry():
+# Create frame
+frame = tk.Frame(root, height=200, width=400)
+frame.grid(row=0, column=0)
+
+
+# Create Labels
+usernameLabel = tk.Label(frame, text="Username: ", padx=20, pady=2)
+usernameLabel.grid(row=0, column=0)
+passwordLabel = tk.Label(frame, text="Password: ", padx=20, pady=2)
+passwordLabel.grid(row=1, column=0)
+
+
+# Create Entries
+usernameEntry = tk.Entry(frame)
+usernameEntry.grid(row=0, column=1)
+passwordEntry = tk.Entry(frame, show="*")
+passwordEntry.grid(row=1, column=1)
+
+
+# Create Functions
+# Will implement login later
+def login():
     print(usernameEntry.get())
     print(passwordEntry.get())
 
+def submitInfo():
+    print("Submit!")
 
-def createAccountWindow():
-    cAccountWindow = tk.Toplevel(root)
-    cAccountCanvas = tk.Canvas(cAccountWindow, height=400, width=300, bg="black")
-    cAccountCanvas.pack()
-    cAccountFrame = tk.Frame(cAccountWindow, bg="white")
-    cAccountFrame.place(relheight=1, relwidth=1)
+def createAccount():
+    createAccountRoot = tk.Toplevel(frame)
+    createAccountRoot.title("Create Account")
 
-    # First Name Label
-    cAccFName = tk.Label(cAccountFrame, text="First Name")
-    cAccFName.pack()
-    cAccFName.place(relx=.2, rely=.1)
-    # First Name Entry Widget
-    cAccFNameEntry = tk.Entry(cAccountFrame, bg="white")
-    cAccFNameEntry.pack()
-    cAccFNameEntry.place(relx=.42, rely=.1)
+    # Create Labels
+    c_firstNameLabel = tk.Label(createAccountRoot, text="First Name: ")
+    c_firstNameLabel.grid(row=0, column=0)
+    c_lastNameLabel = tk.Label(createAccountRoot, text="Last Name: ")
+    c_lastNameLabel.grid(row=1, column=0)
+    c_usernameLabel = tk.Label(createAccountRoot, text="Username: ")
+    c_usernameLabel.grid(row=2, column=0)
+    c_passwordLabel = tk.Label(createAccountRoot, text="Password: ")
+    c_passwordLabel.grid(row=3, column=0)
+    c_VpasswordLabel = tk.Label(createAccountRoot, text="Verify Password: ")
+    c_VpasswordLabel.grid(row=4, column=0)
+    c_phoneLabel = tk.Label(createAccountRoot, text="Phone Number: ")
+    c_phoneLabel.grid(row=5, column=0)
 
-    # Last Name Label
-    cAccLName = tk.Label(cAccountFrame, text="Last Name")
-    cAccLName.pack()
-    cAccLName.place(relx=.2, rely=.16)
-    # Last Name Entry Widget
-    cAccLNameEntry = tk.Entry(cAccountFrame, bg="white")
-    cAccLNameEntry.pack()
-    cAccLNameEntry.place(relx=.42, rely=.16)
+    # Create Entries
+    c_firstNameLabel = tk.Entry(createAccountRoot)
+    c_firstNameLabel.grid(row=0, column=1)
+    c_lastNameLabel = tk.Entry(createAccountRoot)
+    c_lastNameLabel.grid(row=1, column=1)
+    c_usernameLabel = tk.Entry(createAccountRoot)
+    c_usernameLabel.grid(row=2, column=1)
+    c_passwordLabel = tk.Entry(createAccountRoot, show="*")
+    c_passwordLabel.grid(row=3, column=1)
+    c_VpasswordLabel = tk.Entry(createAccountRoot, show="*")
+    c_VpasswordLabel.grid(row=4, column=1)
+    c_phoneLabel = tk.Entry(createAccountRoot)
+    c_phoneLabel.grid(row=5, column=1)
 
-    # Username Label
-    cAccUsername = tk.Label(cAccountFrame, text="Username")
-    cAccUsername.pack()
-    cAccUsername.place(relx=.2, rely=.22)
-    # Username Entry Widget
-    cAccUsernameEntry = tk.Entry(cAccountFrame, bg="white")
-    cAccUsernameEntry.pack()
-    cAccUsernameEntry.place(relx=.42, rely=.22)
-
-    # Password Label
-    cAccP1 = tk.Label(cAccountFrame, text="Password")
-    cAccP1.pack()
-    cAccP1.place(relx=.2, rely=.28)
-    # Password Entry Widget
-    cAccP1Entry = tk.Entry(cAccountFrame, bg="white", show="*")
-    cAccP1Entry.pack()
-    cAccP1Entry.place(relx=.42, rely=.28)
-
-    # Validate Password Label
-    cAccP2 = tk.Label(cAccountFrame, text="Re-enter Password")
-    cAccP2.pack()
-    cAccP2.place(relx=.07, rely=.34)
-    # Validate Password Entry Widget
-    cAccP2Entry = tk.Entry(cAccountFrame, bg="white", show="*")
-    cAccP2Entry.pack()
-    cAccP2Entry.place(relx=.42, rely=.34)
-
-    # Phone Number Label
-    cAccPhone = tk.Label(cAccountFrame, text="Phone number (optional)")
-    cAccPhone.pack()
-    cAccPhone.place(relx=.01, rely=.4)
-    # Phone Number Entry Widget
-    cAccPhoneEntry = tk.Entry(cAccountFrame, bg="white")
-    cAccPhoneEntry.pack()
-    cAccPhoneEntry.place(relx=.48, rely=.4)
-
-    # Recovery Email Address Label
-    cAccRecoveryEmail = tk.Label(cAccountFrame, text="Recovery Email (optional)")
-    cAccRecoveryEmail.pack()
-    cAccRecoveryEmail.place(relx=.01, rely=.46)
-    # Recovery Email Address Entry Widget
-    cAccRecoveryEmailEntry = tk.Entry(cAccountFrame, bg="white")
-    cAccRecoveryEmailEntry.pack()
-    cAccRecoveryEmailEntry.place(relx=.48, rely=.46)
+    # Create Buttons
+    c_submitButton = tk.Button(createAccountRoot, text="Submit", command=submitInfo)
+    c_submitButton.grid(row=6, column=0)
 
 
-# Login Button
-loginButton = tk.Button(frame, padx=5, pady=5, bg="#42f5b6", text="Login", command=dispEntry)
-loginButton.pack()
-loginButton.place(relx=.6, rely=.8)
-
-# Create Account Button
-cAccountButton = tk.Button(frame, padx=5, pady=5, bg="#42f5b6", text="Create Account", command=createAccountWindow)
-cAccountButton.pack()
-cAccountButton.place(relx=.2, rely=.8)
-
-# Username Label
-usernameLabel = tk.Label(frame, text="Username")
-usernameLabel.pack()
-usernameLabel.place(relx=.2, rely=.3)
-# Username Entry Widget
-usernameEntry = tk.Entry(frame, bg="white")
-usernameEntry.pack()
-usernameEntry.place(relx=.4, rely=.3)
-
-# Password Label
-passwordLabel = tk.Label(frame, text="Password")
-passwordLabel.pack()
-passwordLabel.place(relx=.2, rely=.38)
-# Password Entry Widget
-passwordEntry = tk.Entry(frame, bg="white", show="*")
-passwordEntry.pack()
-passwordEntry.place(relx=.4, rely=.38)
+# Create Buttons
+loginButton = tk.Button(frame, text="Login", padx=20, pady=2, command=login)
+loginButton.grid(row=2, column=0)
+createAccountButton = tk.Button(frame, text="Create Account", padx=20, pady=2, command=createAccount)
+createAccountButton.grid(row=2, column=1)
 
 root.mainloop()
